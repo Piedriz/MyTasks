@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import { TaskContext } from '../context';
 
 const Counter = styled.p`
     font-size: 1.8rem;
@@ -10,10 +10,12 @@ const Counter = styled.p`
     margin-bottom: 2rem;
 `;
 
-export default function TaskCounter({nCompleted, nTask}){
+export default function TaskCounter(){
+    const {taskCompleted,
+        totalTask, } = React.useContext(TaskContext)
     return(
         <Counter>
-            ¡Hola! Llevas {nCompleted} de {nTask} tarea{`${nTask === 1 ? '' : 's'}`} completadas
+            {totalTask === 0 ? 'Bienvenido, crea tu primera tarea' : `¡Hola! Llevas ${taskCompleted} de ${totalTask} tarea${`${totalTask === 1 ? '' : 's'}`}`}
         </Counter>
     );
 }

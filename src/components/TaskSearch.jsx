@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
-import { useState } from 'react';
+import { TaskContext } from '../context';
 
 
 const TaskInput = styled.input`
@@ -18,15 +18,12 @@ const TaskInput = styled.input`
     }
 `;
 
-export default function TaskSearch({searchValue, setSearchValue}){
-    
+export default function TaskSearch(){
+    const {searchValue, setSearchValue} = useContext(TaskContext)
 
     const OnSearchValues= (e) =>{
-        console.log(e.target.value);
         setSearchValue(e.target.value);
     }
-
-    
 
     return(
         <TaskInput Value={searchValue} placeholder="Buscar tarea" onInputCapture={OnSearchValues} />
