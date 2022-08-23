@@ -50,6 +50,7 @@ function TaskProvider(props) {
   };
   return (
     <TaskContext.Provider value={{
+        task,
         addTask,
         openModal,
         setOpenModal,

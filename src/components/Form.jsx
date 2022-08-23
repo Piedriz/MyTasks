@@ -70,33 +70,50 @@ const Title = styled.h1`
   text-align: center;
   padding-bottom: 1rem;
 `;
+const Message = styled.p`
+  text-align: center;
+  padding-bottom: 1rem;
+  font-size: 1.2rem;
+`;
 
 function Form(props) {
-  const { addTask } = React.useContext(TaskContext);
+  const { task, addTask } = React.useContext(TaskContext);
   const [newTask, setNewTask] = React.useState("");
+  const [exist, setExist] = React.useState(false);
 
   const onCancel = (e) => {
     props.setOpenModal((prevState) => !prevState);
-    e.preventDefault()
+    e.preventDefault();
   };
   const onSubmit = (e) => {
+    const isExists = task.some(
+      (Task) => Task.text.toLowerCase() === newTask.toLowerCase()
+    );
+    if (!isExists) {
+      addTask(newTask);
+      setExist(false);
+      props.setOpenModal((prevState) => !prevState);
+    } else {
+      setExist(true);
+    }
     e.preventDefault();
-    addTask(newTask);
   };
   const onChange = (e) => {
     setNewTask(e.target.value);
+    setExist(false);
   };
   return (
     <TaskForm onSubmit={onSubmit}>
       <Title>Escribe tu tarea acá</Title>
-      <NewTaskImput onChange={onChange} placeholder="Escriba su nueva tarea" />
+      <NewTaskImput onChange={onChange} placeholder="Escriba su tarea" />
+      {exist && <Message>La tarea {newTask} ya existe</Message>}
       <Buttons>
         <NewTaskButton type="submit">
           <BiTask size={"4rem"} />
           Añadir
         </NewTaskButton>
         <CancelButton onClick={onCancel}>
-          <BiTaskX size={"4rem"}/>
+          <BiTaskX size={"4rem"} />
           Cancelar
         </CancelButton>
       </Buttons>
