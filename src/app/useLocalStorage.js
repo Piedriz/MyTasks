@@ -2,8 +2,8 @@ import React from "react";
 function useLocalStorage(itemName, initialValue) {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
-
   const [item, setItem] = React.useState(initialValue);
+  const [sync, setSync] = React.useState(false)
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -19,11 +19,12 @@ function useLocalStorage(itemName, initialValue) {
         }
         setItem(parsedItem);
         setLoading(false);
+        setSync(true)
       } catch (e) {
         setError(e);
       }
     }, 1000);
-  });
+  },[sync]);
 
   const saveItem = (newItem) => {
     try {
@@ -33,6 +34,11 @@ function useLocalStorage(itemName, initialValue) {
       setError(e);
     }
   };
-  return { item, saveItem, loading, error };
+
+  const syncUp =()=>{
+    setLoading(true)
+    setSync(false)
+  }
+  return { item, saveItem, loading, error, syncUp};
 }
 export default useLocalStorage;

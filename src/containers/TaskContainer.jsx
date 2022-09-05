@@ -10,10 +10,10 @@ const TaskSection = styled.section`
     background-color: #142d4c;
     border-radius: 2rem;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-`;  
+`;
 
-export default function TaskContainer(props){
-    return(
+export default function TaskContainer(props) {
+    return (
         <TaskSection>
             {props.children}
         </TaskSection>

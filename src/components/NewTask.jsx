@@ -10,6 +10,7 @@ export const Add = styled.div`
   &:hover {
     transform: scale(1.2);
   }
+  position:relative;
 `;
 
 export default function NewTask(props) {

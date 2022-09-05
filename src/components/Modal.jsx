@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import { TaskContext } from "../context";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { Add } from "./NewTask";
 
@@ -11,7 +10,7 @@ export const Close = styled(Add)`
   }
 `;
 
-const Div = styled.div`
+export const Div = styled.div`
   transition: 2s;
   background: rgba(32, 35, 41, 0.8);
   position: fixed;
@@ -26,8 +25,8 @@ const Div = styled.div`
   color: white;
 `;
 
-function Modal({ children }) {
-  const { openModal, setOpenModal } = React.useContext(TaskContext);
+function Modal({ openModal, setOpenModal, children }) {
+
   return ReactDOM.createPortal(
     <Div>
       {children}

@@ -1,13 +1,13 @@
 import React from "react";
 import useLocalStorage from "./useLocalStorage";
-const TaskContext = React.createContext();
 
-function TaskProvider(props) {
+function useTasks() {
   const {
     item: task,
     saveItem: saveTasks,
     loading,
     error,
+    syncUp: syncUpTasks,
   } = useLocalStorage("TASKS_V1.0", []);
 
   const [searchValue, setSearchValue] = React.useState("");
@@ -34,6 +34,7 @@ function TaskProvider(props) {
         text
     });
     saveTasks(neWTaskArray)
+    setOpenModal((prevState)=> !prevState)
   }
 
   const OnComplete = (text) => {
@@ -49,7 +50,7 @@ function TaskProvider(props) {
     saveTasks(neWTaskArray);
   };
   return (
-    <TaskContext.Provider value={{
+    {
         task,
         addTask,
         openModal,
@@ -63,8 +64,7 @@ function TaskProvider(props) {
         OnDelete,
         loading,
         error,
-    }}>{props.children}
-    </TaskContext.Provider>
-  );
+        syncUpTasks,
+    })
 }
-export {TaskContext,TaskProvider}
+export default useTasks

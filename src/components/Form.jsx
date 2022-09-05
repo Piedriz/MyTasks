@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { BiTask } from "react-icons/bi";
 import { BiTaskX } from "react-icons/bi";
-import { TaskContext } from "../context";
 
 const TaskForm = styled.form`
   display: flex;
@@ -41,7 +40,7 @@ const CancelButton = styled.button`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: #142d4c;
+  background: none;
   color: white;
   border: none;
   cursor: pointer;
@@ -55,7 +54,7 @@ const CancelButton = styled.button`
 const NewTaskButton = styled.button`
   display: flex;
   align-items: center;
-  background: #142d4c;
+  background: none;
   color: white;
   border: none;
   flex-direction: column;
@@ -76,37 +75,28 @@ const Message = styled.p`
   font-size: 1.2rem;
 `;
 
-function Form(props) {
-  const { task, addTask } = React.useContext(TaskContext);
+function Form({ task, addTask, setOpenModal }) {
   const [newTask, setNewTask] = React.useState("");
   const [exist, setExist] = React.useState(false);
 
   const onCancel = (e) => {
-    props.setOpenModal((prevState) => !prevState);
+    setOpenModal((prevState) => !prevState);
     e.preventDefault();
   };
   const onSubmit = (e) => {
-    const isExists = task.some(
-      (Task) => Task.text.toLowerCase() === newTask.toLowerCase()
-    );
-    if (!isExists) {
-      addTask(newTask);
-      setExist(false);
-      props.setOpenModal((prevState) => !prevState);
-    } else {
-      setExist(true);
-    }
+    task.some((Task) => Task.text.toLowerCase() === newTask.toLowerCase())
+      ? setExist(true) : addTask(newTask)
     e.preventDefault();
   };
   const onChange = (e) => {
+    setExist(false)
     setNewTask(e.target.value);
-    setExist(false);
   };
   return (
     <TaskForm onSubmit={onSubmit}>
       <Title>Escribe tu tarea acá</Title>
       <NewTaskImput onChange={onChange} placeholder="Escriba su tarea" />
-      {exist && <Message>La tarea {newTask} ya existe</Message>}
+      {(exist && <Message>la tarea {newTask} ya existe</Message>)}
       <Buttons>
         <NewTaskButton type="submit">
           <BiTask size={"4rem"} />

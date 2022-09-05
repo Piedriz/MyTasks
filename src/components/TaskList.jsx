@@ -9,11 +9,14 @@ const List = styled.div`
 
 `;
 
-
 export default function TaskList(props){
     return(
         <List>
-            {props.children}
+            {props.loading && props.taskLoading()}
+            {props.error && props.taskError()}
+            {(!props.loading && !props.taskLength) && props.taskEmpty()}
+            {((!props.loading && !props.searchArray.length) && props.taskLength>0 ) && props.emptySearchResults(props.searchValue)}
+            {!props.loading && props.searchArray.map(props.children)}
         </List>
     );
 }
