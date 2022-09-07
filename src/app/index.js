@@ -71,7 +71,7 @@ function App() {
 
           <NewTask setOpenModal={setOpenModal} />
 
-          <ChangeAlert setOpenModal={setOpenModal} openModal={openModal} syncUpTasks={syncUpTasks}/>
+          <ChangeAlert syncUpTasks={syncUpTasks}/>
 
         </TaskContainer>
       </MainContainer>
