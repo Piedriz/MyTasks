@@ -10,7 +10,9 @@ const Logo = styled.img`
 
 export default function MyTaskLogo(){
     return(
-        <Logo src="http://assets.stickpng.com/thumbs/5842a622a6515b1e0ad75af9.png" alt="Logo de MyTask"/>
+        <React.Fragment>
+        <Logo src="https://cdn-icons-png.flaticon.com/512/906/906334.png" alt="Logo de MyTask"/>
+        </React.Fragment>
     );        
 
 }
