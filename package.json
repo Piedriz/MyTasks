@@ -2,7 +2,7 @@
   "name": "my-task",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://Piedriz.github.io/my-task",
+  "homepage": "https://Piedriz.github.io/MyTasks",
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
