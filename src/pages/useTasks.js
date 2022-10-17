@@ -8,7 +8,7 @@ function useTasks() {
     loading,
     error,
     syncUp: syncUpTasks,
-  } = useLocalStorage("TASKS_V1.0", []);
+  } = useLocalStorage("TASKS_V2.0", []);
 
   const [searchValue, setSearchValue] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
@@ -27,26 +27,39 @@ function useTasks() {
       return taskText.includes(imputText);
     });
   }
+
+  const getTask = (id)=>{
+    const taskIndex = task.findIndex((ta) => ta.id === id);
+    return task[taskIndex]
+  }
   const addTask = (text)=>{
+    const id = newTaskId(task);
     const neWTaskArray = [...task];
     neWTaskArray.push({
         completed:false,
-        text
+        text,
+        id,
     });
     saveTasks(neWTaskArray)
     setOpenModal((prevState)=> !prevState)
   }
 
-  const OnComplete = (text) => {
-    const taskIndex = task.findIndex((ta) => ta.text === text);
+  const OnComplete = (id) => {
+    const taskIndex = task.findIndex((ta) => ta.id === id);
     const neWTaskArray = [...task];
     neWTaskArray[taskIndex].completed = !neWTaskArray[taskIndex].completed;
     saveTasks(neWTaskArray);
   };
-  const OnDelete = (text) => {
-    const taskIndex = task.findIndex((ta) => ta.text === text);
+  const OnDelete = (id) => {
+    const taskIndex = task.findIndex((ta) => ta.id === id);
     const neWTaskArray = [...task];
     neWTaskArray.splice(taskIndex, 1);
+    saveTasks(neWTaskArray);
+  };
+  const OnEdit = (id,newText) => {
+    const taskIndex = task.findIndex((ta) => ta.id === id);
+    const neWTaskArray = [...task];
+    neWTaskArray[taskIndex].text = newText;
     saveTasks(neWTaskArray);
   };
   return (
@@ -65,6 +78,15 @@ function useTasks() {
         loading,
         error,
         syncUpTasks,
+        OnEdit,
+        getTask
     })
+}
+
+const newTaskId = (taskList)=>{
+  
+  const idList = taskList.map(task => task.id);
+  const idMax = (idList.length>0 ? Math.max(...idList) : 1)
+  return idMax +1 ;
 }
 export default useTasks

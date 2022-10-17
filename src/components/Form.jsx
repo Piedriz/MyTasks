@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BiTask } from "react-icons/bi";
 import { BiTaskX } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const TaskForm = styled.form`
   display: flex;
@@ -25,6 +26,7 @@ const NewTaskImput = styled.input`
   border-style: none;
   background-color: #385170;
   color: white;
+  text-align: center;
 
   &:focus {
     outline: none;
@@ -75,32 +77,34 @@ const Message = styled.p`
   font-size: 1.2rem;
 `;
 
-function Form({ task, addTask, setOpenModal }) {
+function Form(props) {
   const [newTask, setNewTask] = React.useState("");
-  const [exist, setExist] = React.useState(false);
+  const [newTaskValue, setNewTaskValue] = React.useState(props.defaultTaskText || '');
+  const navigate = useNavigate();
 
   const onCancel = (e) => {
-    setOpenModal((prevState) => !prevState);
-    e.preventDefault();
+    navigate('/');
   };
-  const onSubmit = (e) => {
-    task.some((Task) => Task.text.toLowerCase() === newTask.toLowerCase())
-      ? setExist(true) : addTask(newTask)
-    e.preventDefault();
-  };
+  
   const onChange = (e) => {
-    setExist(false)
     setNewTask(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    // task.some((Task) => Task.text.toLowerCase() === newTask.toLowerCase())
+    //   ? setExist(true) : addTask(newTask)
+    props.submitEvent(newTask)
+    navigate('/');
+    e.preventDefault();
   };
   return (
     <TaskForm onSubmit={onSubmit}>
-      <Title>Escribe tu tarea acá</Title>
-      <NewTaskImput onChange={onChange} placeholder="Escriba su tarea" />
-      {(exist && <Message>la tarea {newTask} ya existe</Message>)}
+      <Title>{props.label}</Title>
+      <NewTaskImput onChange={onChange} placeholder={newTaskValue} />
       <Buttons>
         <NewTaskButton type="submit">
           <BiTask size={"4rem"} />
-          Añadir
+          {props.submitText}
         </NewTaskButton>
         <CancelButton onClick={onCancel}>
           <BiTaskX size={"4rem"} />

@@ -18,5 +18,4 @@ export default function TaskContainer(props) {
             {props.children}
         </TaskSection>
     );
-
 }

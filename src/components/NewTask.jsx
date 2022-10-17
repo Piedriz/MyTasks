@@ -10,16 +10,13 @@ export const Add = styled.div`
   &:hover {
     transform: scale(1.2);
   }
-  position:relative;
 `;
 
 export default function NewTask(props) {
-  const open_close = () => {
-    props.setOpenModal((prevState) => !prevState);
-  };
+ 
   return (
-    <Add>
-      <AiFillPlusCircle onClick={open_close} size="4rem" color="#9fd3c7" />
+    <Add onClick={props.onClick}>
+      <AiFillPlusCircle size="4rem" color="#9fd3c7" />
     </Add>
   );
 }

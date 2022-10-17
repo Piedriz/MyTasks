@@ -18,6 +18,7 @@ function useLocalStorage(itemName, initialValue) {
   const onSuccess= (parsedItem) =>{dispatch({type:actionTypes.success, payload:parsedItem})}
   const onSyncUp = ()=>{dispatch({type: actionTypes.syncUp})}
   const onSave = (newItem) => {dispatch({type: actionTypes.save, payload:newItem})}
+  
   React.useEffect(() => {
     setTimeout(() => {
       try {
