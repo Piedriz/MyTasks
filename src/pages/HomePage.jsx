@@ -9,7 +9,6 @@ import TaskItem from "../components/TaskItem";
 import NewTask from "../components/NewTask";
 import Header from "../components/Header";
 import useTasks from "./useTasks";
-import Modal from "../components/Modal";
 import TaskError from "../components/TaskError";
 import TaskLoading from "../components/TaskLoading";
 import TaskEmpty from "../components/TaskEmpty";

@@ -8,14 +8,22 @@ const Item = styled.div`
   padding: 1rem 2rem;
   margin-top: 2rem; 
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   width: 100%;
-  height: 5rem;
+  justify-content: space-between;
+  height: 6rem;
   background-color: #385170;
   border-radius: 1rem;
   align-items: center;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
+
+// const MainOptions = styled.div`
+//   display:flex;
+//   flex-direction:row;
+//   justify-content:space-between;
+//   width: 100%;
+// `;
 const DeleteButton = styled.div`
   cursor: pointer;
   color: #9fd3c7;
@@ -27,13 +35,16 @@ const DeleteButton = styled.div`
     transform: scale(1.1);
   }
 `;
+const Content = styled.div`
+  position: relative;
+`;
 const EditButton = styled.div`
   cursor: pointer;
   color: #9fd3c7;
   transition: 0.5s;
-  position: relative;
-
-  
+  position: absolute;
+  top:-1rem;
+  right:1rem;
   &:hover {
     color: #1e73be;
     transform: scale(1.1);
@@ -60,6 +71,7 @@ const TaskText = styled.p`
 
 export default function TaskItem(props) {
   return (
+    <Content>
     <Item>
       <CompletedButton>
         <AiFillCheckCircle
@@ -72,9 +84,11 @@ export default function TaskItem(props) {
       <DeleteButton>
         <AiFillDelete onClick={props.OnDelete} size="2rem" />
       </DeleteButton>
-      <EditButton>
-        <AiFillEdit onClick={props.OnEdit} size="2rem" />
-      </EditButton>
+      
     </Item>
+    <EditButton>
+    <AiFillEdit onClick={props.OnEdit} size="2rem" />
+  </EditButton>
+  </Content>
   );
 }

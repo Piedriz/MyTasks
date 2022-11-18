@@ -71,11 +71,7 @@ const Title = styled.h1`
   text-align: center;
   padding-bottom: 1rem;
 `;
-const Message = styled.p`
-  text-align: center;
-  padding-bottom: 1rem;
-  font-size: 1.2rem;
-`;
+
 
 function Form(props) {
   const [newTask, setNewTask] = React.useState("");
